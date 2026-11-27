@@ -1,0 +1,16 @@
+{
+  "name": "natrasie",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node web/build.mjs",
+    "preview": "npm run build && node web/preview.mjs"
+  },
+  "dependencies": {
+    "gtfs-realtime-bindings": "3.0.0",
+    "leaflet": "1.9.4"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

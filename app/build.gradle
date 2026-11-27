@@ -1,0 +1,30 @@
+plugins {
+    id 'com.android.application' version '8.13.2'
+}
+
+android {
+    namespace 'pl.natrasie.mobile'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'pl.natrasie.mobile'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    sourceSets.main.assets.srcDir(layout.buildDirectory.dir('generated/web'))
+}
+
+def windows = System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')
+def buildWeb = tasks.register('buildWeb', Exec) {
+    workingDir rootProject.projectDir
+    commandLine(windows ? ['cmd', '/c', 'npm.cmd', 'run', 'build'] : ['npm', 'run', 'build'])
+    inputs.dir(rootProject.file('web'))
+    inputs.file(rootProject.file('package-lock.json'))
+    outputs.dir(layout.buildDirectory.dir('generated/web'))
+}
+tasks.named('preBuild').configure { dependsOn(buildWeb) }

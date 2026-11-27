@@ -1,0 +1,7 @@
+/.gradle/
+/.playwright-cli/
+/build/
+/node_modules/
+/app/build/
+/local.properties
+/output/
